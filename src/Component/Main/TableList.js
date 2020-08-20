@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import Table from "./Table";
+import { flexCenter } from "../../Styles/Theme";
 
 const TableList = () => {
   const [tableList, setTableList] = useState([]);
@@ -8,20 +9,19 @@ const TableList = () => {
   const nextId = useRef(0);
 
   useEffect(() => {
-    setTableList(...tableList, [
-      {
-        tableId: 1,
-        tableName: "테이블1",
-        tableMebers: 1,
-      },
-      {
-        tableId: 2,
-        tableName: "테이블2",
-        tableMebers: 1,
-      },
-    ]);
+    const nowTableList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
-    nextId.current = 2;
+    nowTableList.map((index) => {
+      return { tableId: index, tableName: `테이블${index}`, tableMebers: 0 };
+    });
+
+    setTableList(
+      nowTableList.map((index) => {
+        return { tableId: index, tableName: `테이블${index}`, tableMebers: 0 };
+      })
+    );
+
+    nextId.current = nowTableList.length + 1;
   }, []);
 
   const onCreateTable = () => {
@@ -67,7 +67,11 @@ const TableList = () => {
 export default TableList;
 
 const TableListContainer = styled.div`
-  height: 800px;
-  width: 60%;
-  border: 1px solid blue;
+  height: 750px;
+  width: 75%;
+  margin: 10px 10px;
+  ${flexCenter};
+  flex-flow: row wrap;
+  box-shadow: 3px 3px 3px 3px gray;
+  background-color: #f5f5dc;
 `;
