@@ -1,52 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import theme, { flexSpaceBetween, flexCenter } from "../../Styles/Theme";
 
-const Table = ({ table, onDeleteTable, onUpdateTable }) => {
-  useEffect(() => {
-    console.log("실행");
-    return () => {
-      alert(`${table.tableName}이 삭제 됩니다.`);
-    };
-  }, []);
-
-  useEffect(() => {
-    return () => {
-      console.log("이전 table 값 : ", table);
-      alert("손님이 늘었습니다.");
-    };
-  }, [table]);
-
+const Table = ({ table, onUpdateTable }) => {
   return (
-    <TableContaner>
+    <TableContaner onClick={() => onUpdateTable(table)}>
       <TableHeader>
-        <span>3</span>
-        <div>호출</div>
+        <span>{table.tableIndex}</span>
+        <CurrentState persons={table.persons}>{table.persons}</CurrentState>
       </TableHeader>
       <TableCenter>
         <ul>
-          <li>
-            <span>크림 파스타</span> <span>1</span>
-          </li>
-          <li>
-            <span>로제 파스타</span> <span>1</span>
-          </li>
-          <li>
-            <span>탄산 음료</span> <span>1</span>
-          </li>
-          <li>
-            <span></span>
-          </li>
-          <li>
-            <span></span>
-          </li>
-          <li>
-            <span></span>
-          </li>
+          {table.food.map((food, index) => {
+            if (index > 5) {
+              return;
+            } else {
+              return (
+                <li>
+                  <span>{food.foodname}</span> <span>{food.count}</span>
+                </li>
+              );
+            }
+          })}
         </ul>
       </TableCenter>
       <TableFooter>
-        <span>4500</span>
+        <span>{table.totalAmount}</span>
         <span>원</span>
       </TableFooter>
     </TableContaner>
@@ -76,18 +55,24 @@ const TableHeader = styled.div`
     font-size: 20px;
     font-weight: bold;
   }
+`;
 
-  div {
-    width: 50px;
-    height: 22px;
-    margin: 0 10px;
-    ${flexCenter};
-    border-radius: 10px;
-    font-size: 15px;
-    font-weight: bold;
-    color: white;
-    background-color: red;
-  }
+const CurrentState = styled.div`
+  width: 50px;
+  height: 22px;
+  margin: 0 10px;
+  ${flexCenter};
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  color: white;
+  background-color: ${(props) => {
+    if (props.persons > 0) {
+      return "blue";
+    } else {
+      return "grey";
+    }
+  }};
 `;
 
 const TableCenter = styled.div`

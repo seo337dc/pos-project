@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 
 const Time = () => {
   const [nowTime, setNowTime] = useState("");
 
   useEffect(() => {
-    setInterval(() => {
+    const timeInter = setInterval(() => {
       let today = new Date();
       let hh = today.getHours();
       let mi = today.getMinutes();
@@ -14,7 +14,11 @@ const Time = () => {
       console.log(timeData);
       setNowTime(timeData);
     }, 1000);
-  }, [nowTime]);
+
+    return () => {
+      clearInterval(timeInter);
+    };
+  }, []);
 
   return <h1>현재 시간 : {nowTime}</h1>;
 };
