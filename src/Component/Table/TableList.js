@@ -26,8 +26,8 @@ const TableListContainer = styled.div`
   width: 75%;
   margin: 10px 10px;
   ${flexCenter};
-  overflow: scroll;
   flex-flow: row wrap;
   box-shadow: 3px 3px 3px 3px gray;
   background-color: #f5f5dc;
+  overflow: scroll;
 `;

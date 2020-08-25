@@ -33,7 +33,6 @@ const MenuImage = styled.div`
   ${flexCenter};
 
   img {
-    width: 30;
     height: 90%;
   }
 `;

@@ -66,6 +66,7 @@ const CurrentState = styled.div`
   font-size: 15px;
   font-weight: bold;
   color: white;
+
   background-color: ${(props) => {
     if (props.persons > 0) {
       return "blue";
@@ -83,8 +84,8 @@ const TableCenter = styled.div`
     height: 134px;
     margin: 0;
     padding: 0;
-    list-style: none;
     background-color: white;
+    list-style: none;
 
     li {
       height: 20px;
@@ -99,8 +100,8 @@ const TableCenter = styled.div`
 `;
 const TableFooter = styled.div`
   height: 30px;
-  border-radius: 0 0 10px 10px;
   ${flexSpaceBetween};
+  border-radius: 0 0 10px 10px;
 
   span {
     margin: 10px;

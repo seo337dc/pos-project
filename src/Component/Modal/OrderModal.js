@@ -92,7 +92,6 @@ const OrderModalHeader = styled.div`
 
     &:nth-child(1) {
       width: 25%;
-
       background-color: #d9480f;
     }
 
@@ -118,6 +117,7 @@ const OrderModalCenter = styled.div`
   width: 100%;
   display: flex;
 `;
+
 const OrderLeft = styled.div`
   width: 50%;
   border-right: 1px solid black;

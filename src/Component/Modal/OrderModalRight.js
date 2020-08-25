@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import MenuComponent from "./ModalComponent/MenuComponent";
-import { flexCenter, flexSpaceBetween } from "../../Styles/Theme";
 
 const OrderModalRight = ({ menuList }) => {
   console.log(menuList);

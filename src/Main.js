@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import TableDetail from "./Component/Main/TableInfo";
-import TableList from "./Component/Main/TableList";
-import TotalAmount from "./Component/Main/TotalAmount";
-import Time from "./Component/Main/Time";
+import TableDetail from "./Component/Table/TableInfo";
+import TableList from "./Component/Table/TableList";
+import TotalAmount from "./Component/Table/TotalAmount";
+import Time from "./Component/Table/Time";
 import { flexCenter, flexSpaceBetween } from "./Styles/Theme";
 import DataTableList from "./mokData/DataTableList";
 import OrderModal from "./Component/Modal/OrderModal";
