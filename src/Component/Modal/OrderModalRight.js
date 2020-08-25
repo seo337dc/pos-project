@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import MenuComponent from "./ModalComponent/MenuComponent";
 import { flexCenter, flexSpaceBetween } from "../../Styles/Theme";
 
 const OrderModalRight = ({ menuList }) => {
@@ -9,7 +10,7 @@ const OrderModalRight = ({ menuList }) => {
   return (
     <OrderModalRightContainer>
       {menuList.map((menu, index) => (
-        <div key={index}>{menu.orderName}</div>
+        <MenuComponent key={index} menu={menu} />
       ))}
     </OrderModalRightContainer>
   );
@@ -19,12 +20,5 @@ export default OrderModalRight;
 
 const OrderModalRightContainer = styled.div`
   width: 50%;
-  border: 1px solid black;
   overflow: scroll;
-
-  div {
-    height: 120px;
-    border: 1px solid black;
-    ${flexCenter};
-  }
 `;

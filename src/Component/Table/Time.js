@@ -11,7 +11,6 @@ const Time = () => {
       let ss = today.getSeconds();
 
       const timeData = `${hh}:${mi}:${ss}`;
-      console.log(timeData);
       setNowTime(timeData);
     }, 1000);
 
