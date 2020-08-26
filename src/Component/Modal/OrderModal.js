@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import styled from "styled-components";
 import { BsPersonSquare } from "react-icons/bs";
 import { AiFillCaretRight, AiFillCaretLeft } from "react-icons/ai";
 import OrderModalRight from "./OrderModalRight";
+import TableCurrentComponent from "./ModalComponent/TableCurrentComponent";
 import { flexCenter, flexSpaceBetween } from "../../Styles/Theme";
 import DatamenuList from "../../mokData/DatamenuList";
 
@@ -10,6 +11,7 @@ const OrderModal = () => {
   const [orderIndex, setOrderIndex] = useState(0);
   const [menuList, setMenuList] = useState([]);
   const [member, setMember] = useState(0);
+  const [tableFoodList, setTableFoodList] = useState([]);
 
   useEffect(() => {
     //api 연동으로 값 가지고 오기
@@ -30,6 +32,68 @@ const OrderModal = () => {
       setMember(member + 1);
     }
   };
+
+  const onHandleCurrentTable = (menu) => {
+    if (tableFoodList.length === 0) {
+      setTableFoodList(
+        tableFoodList.concat({
+          foodName: menu.orderName,
+          price: menu.price,
+          count: 1,
+        })
+      );
+      return;
+    }
+
+    let result = false;
+    tableFoodList.forEach((food) => {
+      if (food.foodName === menu.orderName) {
+        result = true;
+        return;
+      }
+    });
+
+    if (result) {
+      setTableFoodList(
+        tableFoodList.map((food) =>
+          food.foodName === menu.orderName
+            ? {
+                ...food,
+                count: food.count + 1,
+              }
+            : food
+        )
+      );
+      return;
+    } else {
+      setTableFoodList(
+        tableFoodList.concat({
+          foodName: menu.orderName,
+          price: menu.price,
+          count: 1,
+        })
+      );
+      return;
+    }
+  };
+
+  const onHandleDeleteFood = (menu) => {
+    setTableFoodList(
+      tableFoodList.filter((food) => food.foodName !== menu.foodName)
+    );
+  };
+
+  const totalAmount = (foodList) => {
+    let resultAmout = 0;
+    foodList.forEach((food) => {
+      resultAmout = resultAmout + food.price * food.count;
+    });
+    return resultAmout;
+  };
+
+  const resultTotalAmout = useMemo(() => totalAmount(tableFoodList), [
+    tableFoodList,
+  ]);
 
   return (
     <OrderModalContainer>
@@ -56,12 +120,24 @@ const OrderModal = () => {
               />
             </TableNumberCount>
           </MemberCount>
+
+          <TableCurrentComponent
+            tableFoodList={tableFoodList}
+            onHandleDeleteFood={onHandleDeleteFood}
+          />
+
+          <TotalAmount>
+            <span>현재 가격 :</span> <span>{resultTotalAmout} 원</span>
+          </TotalAmount>
         </OrderLeft>
-        <OrderModalRight menuList={menuList} />
+        <OrderModalRight
+          menuList={menuList}
+          onHandleCurrentTable={onHandleCurrentTable}
+        />
       </OrderModalCenter>
       <OrderModalFooter>
-        <Button></Button>
-        <Button></Button>
+        <Button>확인</Button>
+        <Button>취소</Button>
       </OrderModalFooter>
     </OrderModalContainer>
   );
@@ -76,7 +152,7 @@ const OrderModalContainer = styled.div`
   width: 800px;
   background-color: white;
   border: 1px solid black;
-  position: fixed;
+  position: absolute;
 `;
 
 const OrderModalHeader = styled.div`
@@ -124,7 +200,7 @@ const OrderLeft = styled.div`
 `;
 
 const MemberCount = styled.div`
-  height: 60px;
+  height: 15%;
   ${flexSpaceBetween};
   border-bottom: 1px solid #ddd;
 `;
@@ -148,10 +224,6 @@ const TableNumberCount = styled.div`
   user-select: none;
 `;
 
-const BtnCounter = styled.div`
-  font-size: 40px;
-`;
-
 const OrderModalFooter = styled.div`
   height: 100px;
   width: 100%;
@@ -165,4 +237,15 @@ const Button = styled.div`
   margin: 0 60px;
   border-radius: 10px;
   background-color: blue;
+`;
+
+const TotalAmount = styled.div`
+  height: 15%;
+  font-size: 30px;
+  font-weight: bold;
+  ${flexSpaceBetween};
+
+  span {
+    margin: 0 10px;
+  }
 `;

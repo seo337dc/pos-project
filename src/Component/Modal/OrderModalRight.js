@@ -2,14 +2,17 @@ import React from "react";
 import styled from "styled-components";
 import MenuComponent from "./ModalComponent/MenuComponent";
 
-const OrderModalRight = ({ menuList }) => {
-  console.log(menuList);
+const OrderModalRight = ({ menuList, onHandleCurrentTable }) => {
   if (menuList.length === 0) return <OrderModalRightContainer />;
 
   return (
     <OrderModalRightContainer>
       {menuList.map((menu, index) => (
-        <MenuComponent key={index} menu={menu} />
+        <MenuComponent
+          key={index}
+          menu={menu}
+          onHandleCurrentTable={onHandleCurrentTable}
+        />
       ))}
     </OrderModalRightContainer>
   );

@@ -2,9 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import { flexCenter, flexSpaceBetween } from "../../../Styles/Theme";
 
-const MenuComponent = ({ menu }) => {
+const MenuComponent = ({ menu, onHandleCurrentTable }) => {
   return (
-    <MenuContainer>
+    <MenuContainer onClick={() => onHandleCurrentTable(menu)}>
       <MenuImage>
         <img
           src={`${process.env.PUBLIC_URL}/images/MenuImage/${menu.imageName}.jpg`}
@@ -24,6 +24,7 @@ export default MenuComponent;
 const MenuContainer = styled.div`
   height: 120px;
   display: flex;
+  cursor: pointer;
   border-bottom: 1px solid black;
 `;
 
