@@ -1,9 +1,19 @@
-import React, { useEffect } from "react";
+import React, { useMemo } from "react";
 import styled from "styled-components";
 import { BsPersonSquare } from "react-icons/bs";
 import { flexCenter, flexSpaceBetween } from "../../Styles/Theme";
 
-const TableInfo = ({ tableInfo }) => {
+const TableDetail = ({ tableInfo, onHandleModal }) => {
+  const totalAmount = (tableInfo) => {
+    let resultAmout = 0;
+    tableInfo.food.forEach((food) => {
+      resultAmout = resultAmout + food.price * food.count;
+    });
+    return resultAmout;
+  };
+
+  const resultTotalAmout = useMemo(() => totalAmount(tableInfo), [tableInfo]);
+
   return (
     <TableInfoContainer>
       <TableInfoHeader>
@@ -21,8 +31,8 @@ const TableInfo = ({ tableInfo }) => {
         {tableInfo.food.map((foodData, index) => (
           <li>
             <span>{index + 1}</span>
-            <span>{foodData.foodname}</span>
-            <span>{foodData.amount}</span>
+            <span>{foodData.foodName}</span>
+            <span>{foodData.price}</span>
             <span>x {foodData.count}</span>
           </li>
         ))}
@@ -30,10 +40,10 @@ const TableInfo = ({ tableInfo }) => {
 
       <TableInfoAmount>
         <span>총 가격 : </span>
-        <span>{tableInfo.totalAmount} 원</span>
+        <span>{resultTotalAmout} 원</span>
       </TableInfoAmount>
       <TableInfoButton>
-        <Button>주문/수정</Button>
+        <Button onClick={onHandleModal}>주문/수정</Button>
         <Button>계산</Button>
         <Button>영수증</Button>
       </TableInfoButton>
@@ -41,7 +51,7 @@ const TableInfo = ({ tableInfo }) => {
   );
 };
 
-export default TableInfo;
+export default TableDetail;
 
 const TableInfoContainer = styled.div`
   width: 35%;

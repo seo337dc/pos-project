@@ -6,12 +6,14 @@ const Time = () => {
   useEffect(() => {
     const timeInter = setInterval(() => {
       let today = new Date();
-      let hh = today.getHours();
-      let mi = today.getMinutes();
-      let ss = today.getSeconds();
 
-      const timeData = `${hh}:${mi}:${ss}`;
-      setNowTime(timeData);
+      setNowTime(
+        ("0" + today.getHours()).slice(-2) +
+          ":" +
+          ("0" + today.getMinutes()).slice(-2) +
+          ":" +
+          ("0" + today.getSeconds()).slice(-2)
+      );
     }, 1000);
 
     return () => {

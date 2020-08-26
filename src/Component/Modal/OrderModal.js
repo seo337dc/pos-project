@@ -7,14 +7,14 @@ import TableCurrentComponent from "./ModalComponent/TableCurrentComponent";
 import { flexCenter, flexSpaceBetween } from "../../Styles/Theme";
 import DatamenuList from "../../mokData/DatamenuList";
 
-const OrderModal = () => {
+const OrderModal = ({ tableInfo, onUpdateTable, setIsValidModal }) => {
   const [orderIndex, setOrderIndex] = useState(0);
   const [menuList, setMenuList] = useState([]);
-  const [member, setMember] = useState(0);
+  const [member, setMember] = useState(tableInfo.persons);
   const [tableFoodList, setTableFoodList] = useState([]);
 
   useEffect(() => {
-    //api 연동으로 값 가지고 오기
+    setTableFoodList(tableInfo.food);
     setMenuList(DatamenuList.main);
   }, []);
 
@@ -106,7 +106,7 @@ const OrderModal = () => {
       <OrderModalCenter>
         <OrderLeft>
           <MemberCount>
-            <TableNumberCircle>1</TableNumberCircle>
+            <TableNumberCircle>{tableInfo.tableIndex}</TableNumberCircle>
             <TableNumberCount>
               <BsPersonSquare size="50" color="#819ff7" />
               <AiFillCaretLeft
@@ -136,8 +136,14 @@ const OrderModal = () => {
         />
       </OrderModalCenter>
       <OrderModalFooter>
-        <Button>확인</Button>
-        <Button>취소</Button>
+        <Button
+          onClick={() =>
+            onUpdateTable(tableFoodList, tableInfo.tableIndex, member)
+          }
+        >
+          확인
+        </Button>
+        <Button onClick={() => setIsValidModal(false)}>취소</Button>
       </OrderModalFooter>
     </OrderModalContainer>
   );
@@ -236,7 +242,11 @@ const Button = styled.div`
   width: 200px;
   margin: 0 60px;
   border-radius: 10px;
+  ${flexCenter};
+  font-size: 30px;
+  color: white;
   background-color: blue;
+  cursor: pointer;
 `;
 
 const TotalAmount = styled.div`

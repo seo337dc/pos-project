@@ -3,16 +3,14 @@ import styled from "styled-components";
 import Table from "./Table";
 import { flexCenter } from "../../Styles/Theme";
 
-const TableList = ({ tableDataList, onUpdateTable }) => {
-  console.log(tableDataList);
-
+const TableList = ({ tableDataList, onChangeTable }) => {
   return (
     <TableListContainer>
       {tableDataList.map((table) => (
         <Table
           key={table.tableIndex}
           table={table}
-          onUpdateTable={onUpdateTable}
+          onChangeTable={onChangeTable}
         />
       ))}
     </TableListContainer>

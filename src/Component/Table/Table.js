@@ -1,10 +1,20 @@
-import React from "react";
+import React, { useMemo } from "react";
 import styled from "styled-components";
 import theme, { flexSpaceBetween, flexCenter } from "../../Styles/Theme";
 
-const Table = ({ table, onUpdateTable }) => {
+const Table = ({ table, onChangeTable }) => {
+  const totalAmount = (foodList) => {
+    let resultAmout = 0;
+    foodList.forEach((food) => {
+      resultAmout = resultAmout + food.price * food.count;
+    });
+    return resultAmout;
+  };
+
+  const resultTotalAmout = useMemo(() => totalAmount(table.food), [table.food]);
+
   return (
-    <TableContaner onClick={() => onUpdateTable(table)}>
+    <TableContaner onClick={() => onChangeTable(table)}>
       <TableHeader>
         <span>{table.tableIndex}</span>
         <CurrentState persons={table.persons}>{table.persons}</CurrentState>
@@ -17,7 +27,7 @@ const Table = ({ table, onUpdateTable }) => {
             } else {
               return (
                 <li>
-                  <span>{food.foodname}</span> <span>{food.count}</span>
+                  <span>{food.foodName}</span> <span>{food.count}</span>
                 </li>
               );
             }
@@ -25,7 +35,7 @@ const Table = ({ table, onUpdateTable }) => {
         </ul>
       </TableCenter>
       <TableFooter>
-        <span>{table.totalAmount}</span>
+        <span>{resultTotalAmout}</span>
         <span>원</span>
       </TableFooter>
     </TableContaner>
