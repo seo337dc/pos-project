@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import Table from "./Table";
 import { flexCenter } from "../../Styles/Theme";
 
-const TableList = ({ tableDataList, onChangeTable }) => {
+const tableListSelector = (state) => state.reducerTableData.tableDataList;
+
+const TableList = () => {
+  const tableDataList = useSelector(tableListSelector);
+
   return (
     <TableListContainer>
       {tableDataList.map((table) => (
-        <Table
-          key={table.tableIndex}
-          table={table}
-          onChangeTable={onChangeTable}
-        />
+        <Table key={table.tableIndex} table={table} />
       ))}
     </TableListContainer>
   );
