@@ -1,9 +1,26 @@
 import React, { useMemo } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { BsPersonSquare } from "react-icons/bs";
 import { flexCenter, flexSpaceBetween } from "../../Styles/Theme";
+import { useSelector } from "react-redux";
 
-const TableDetail = ({ tableInfo, onHandleModal }) => {
+const tableDataListSelector = (state) => state.reducerTableData.tableDataList;
+const nowTableIndeSelector = (state) => state.reducerTableData.nowTableIndex;
+
+const TableInfo = ({ moveTop }) => {
+  const tableDataList = useSelector(tableDataListSelector);
+  const nowTableIndex = useSelector(nowTableIndeSelector);
+  const tableInfo = tableDataList[nowTableIndex];
+
+  const dispatch = useDispatch();
+
+  const onHandleModal = () => {
+    dispatch({ type: "CHANGEMODAL" });
+    const location = moveTop.current.offsetTop;
+    window.scrollTo({ top: location, behavior: "smooth" });
+  };
+
   const totalAmount = (tableInfo) => {
     let resultAmout = 0;
     tableInfo.food.forEach((food) => {
@@ -51,7 +68,7 @@ const TableDetail = ({ tableInfo, onHandleModal }) => {
   );
 };
 
-export default TableDetail;
+export default TableInfo;
 
 const TableInfoContainer = styled.div`
   width: 35%;

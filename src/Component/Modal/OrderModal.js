@@ -1,13 +1,23 @@
 import React, { useState, useEffect, useMemo } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import { BsPersonSquare } from "react-icons/bs";
 import { AiFillCaretRight, AiFillCaretLeft } from "react-icons/ai";
 import OrderModalRight from "./OrderModalRight";
 import TableCurrentComponent from "./ModalComponent/TableCurrentComponent";
 import { flexCenter, flexSpaceBetween } from "../../Styles/Theme";
+import { updateTable } from "../../Redux/action/tableInfoAction";
 import DatamenuList from "../../mokData/DatamenuList";
 
-const OrderModal = ({ tableInfo, onUpdateTable, setIsValidModal }) => {
+const tableListSelector = (state) => state.reducerTableData.tableDataList;
+const nowTableIndexSelector = (state) => state.reducerTableData.nowTableIndex;
+
+const OrderModal = () => {
+  const tableDataList = useSelector(tableListSelector);
+  const tableInfo = tableDataList[useSelector(nowTableIndexSelector)];
+
+  const dispatch = useDispatch();
+
   const [orderIndex, setOrderIndex] = useState(0);
   const [menuList, setMenuList] = useState([]);
   const [member, setMember] = useState(tableInfo.persons);
@@ -24,6 +34,21 @@ const OrderModal = ({ tableInfo, onUpdateTable, setIsValidModal }) => {
     if (orderIndex === 2) setMenuList(DatamenuList.drink);
     if (orderIndex === 3) setMenuList(DatamenuList.ect);
   }, [orderIndex]);
+
+  const onHandleConfirm = () => {
+    if (member === 0) {
+      alert("인원 수가 0 입니다.");
+      return;
+    }
+
+    if (tableFoodList.length === 0) {
+      alert("메뉴를 입력하지 않았습니다.");
+      return;
+    }
+
+    dispatch({ type: "CHANGEMODAL" });
+    dispatch(updateTable(tableInfo, tableDataList, tableFoodList, member));
+  };
 
   const onHandleMember = (direction) => {
     if (direction === "left" && member > 0) {
@@ -136,14 +161,8 @@ const OrderModal = ({ tableInfo, onUpdateTable, setIsValidModal }) => {
         />
       </OrderModalCenter>
       <OrderModalFooter>
-        <Button
-          onClick={() =>
-            onUpdateTable(tableFoodList, tableInfo.tableIndex, member)
-          }
-        >
-          확인
-        </Button>
-        <Button onClick={() => setIsValidModal(false)}>취소</Button>
+        <Button onClick={onHandleConfirm}>확인</Button>
+        <Button onClick={() => dispatch({ type: "CHANGEMODAL" })}>취소</Button>
       </OrderModalFooter>
     </OrderModalContainer>
   );

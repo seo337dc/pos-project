@@ -1,8 +1,12 @@
 import React, { useMemo } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import theme, { flexSpaceBetween, flexCenter } from "../../Styles/Theme";
+import { flexSpaceBetween, flexCenter } from "../../Styles/Theme";
+import { changeTable } from "../../Redux/action/tableInfoAction";
 
-const Table = ({ table, onChangeTable }) => {
+const Table = ({ table }) => {
+  const dispatch = useDispatch();
+
   const totalAmount = (foodList) => {
     let resultAmout = 0;
     foodList.forEach((food) => {
@@ -14,7 +18,7 @@ const Table = ({ table, onChangeTable }) => {
   const resultTotalAmout = useMemo(() => totalAmount(table.food), [table.food]);
 
   return (
-    <TableContaner onClick={() => onChangeTable(table)}>
+    <TableContainer onClick={() => dispatch(changeTable(table))}>
       <TableHeader>
         <span>{table.tableIndex}</span>
         <CurrentState persons={table.persons}>{table.persons}</CurrentState>
@@ -38,13 +42,13 @@ const Table = ({ table, onChangeTable }) => {
         <span>{resultTotalAmout}</span>
         <span>원</span>
       </TableFooter>
-    </TableContaner>
+    </TableContainer>
   );
 };
 
 export default Table;
 
-const TableContaner = styled.div`
+const TableContainer = styled.div`
   width: 200px;
   height: 200px;
   margin: 10px;
