@@ -1,17 +1,28 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
+import useReactRouter from "use-react-router";
 import styled from "styled-components";
 import TableInfo from "./Component/Table/TableInfo";
 import TableList from "./Component/Table/TableList";
-import TotalAmount from "./Component/Table/TotalAmount";
 import Time from "./Component/Table/Time";
 import { flexCenter, flexSpaceBetween } from "./Styles/Theme";
 import OrderModal from "./Component/Modal/OrderModal";
 
 const modalValidSelector = (state) => state.reducerModal.isValid;
 const Main = () => {
+  const { history } = useReactRouter();
   const isValidModal = useSelector(modalValidSelector);
   const moveTop = useRef();
+
+  useEffect(() => {
+    console.log(localStorage.getItem("code"));
+    if (!localStorage.getItem("code") || localStorage.getItem("code") === "") {
+      alert("코드 입력부터 하시길 바랍니다.");
+      history.push("/");
+    }
+  }, []);
+
+  if (!localStorage.getItem("code")) return null;
 
   return (
     <MainContainer ref={moveTop}>
@@ -24,7 +35,6 @@ const Main = () => {
           <TableInfo moveTop={moveTop} />
           <TableList />
         </Center>
-        <TotalAmount />
       </MainContent>
     </MainContainer>
   );

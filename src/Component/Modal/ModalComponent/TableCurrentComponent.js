@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import styled from "styled-components";
 import { RiDeleteBack2Line } from "react-icons/ri";
 

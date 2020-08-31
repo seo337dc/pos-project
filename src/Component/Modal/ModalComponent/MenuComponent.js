@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { flexCenter, flexSpaceBetween } from "../../../Styles/Theme";
+import { flexCenter } from "../../../Styles/Theme";
 
 const MenuComponent = ({ menu, onHandleCurrentTable }) => {
   return (
