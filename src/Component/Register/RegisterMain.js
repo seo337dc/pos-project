@@ -8,7 +8,9 @@ function RegisterMain() {
     <RegisterMainContainer>
       <RegisterCenter>
         <RegisterSign />
-        <SignUpContainer></SignUpContainer>
+        <SignUpContainer>
+          <Button>등록하기</Button>
+        </SignUpContainer>
       </RegisterCenter>
     </RegisterMainContainer>
   );
@@ -36,4 +38,27 @@ const SignUpContainer = styled.div`
   background-color: white;
   border: 1px solid black;
   box-shadow: 3px 3px 3px 3px gray;
+
+  h1 {
+    margin: 50px 0;
+    text-align: center;
+  }
+`;
+
+const Button = styled.div`
+  width: 200px;
+  height: 100px;
+  margin: 100px auto;
+  ${flexCenter};
+  border-radius: 10px;
+  font-weight: bold;
+  border: 0;
+  outline: 0;
+  background-color: blue;
+  color: white;
+  cursor: pointer;
+
+  & {
+    font-size: 30px;
+  }
 `;

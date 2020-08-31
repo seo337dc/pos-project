@@ -81,7 +81,7 @@ function RegisterSign() {
   return (
     <SignInContainer>
       <div>
-        <TitleContainer>Sign Up</TitleContainer>
+        <TitleContainer>인증</TitleContainer>
         <PhoneContainer>
           <InputContainer>
             <span>번호 입력 : </span>
@@ -129,7 +129,7 @@ const SignInContainer = styled.div`
 `;
 
 const TitleContainer = styled.div`
-  margin-bottom: 40px;
+  margin: 40px auto;
   font-size: 40px;
   font-weight: bold;
   ${flexCenter};

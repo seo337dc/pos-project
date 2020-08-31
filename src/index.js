@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
 import { ThemeProvider } from "styled-components";
@@ -21,7 +21,7 @@ ReactDOM.render(
           <Route exact path="/" component={RegisterMain} />
         </Switch>
       </Router>
-      <Footer />
+      <Footer /> 
     </ThemeProvider>
   </Provider>,
   document.getElementById("root")
