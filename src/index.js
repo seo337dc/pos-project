@@ -6,6 +6,9 @@ import { Provider } from "react-redux";
 import { ThemeProvider } from "styled-components";
 import theme from "./Styles/Theme";
 import Main from "./Main";
+import CustomMize from "./Component/CumstomMize/CustomMize";
+import Test from "./Test";
+
 import RegisterMain from "./Component/Register/RegisterMain";
 import Footer from "./Component/Footer";
 import rootReducer from "./Redux/Reducer/index";
@@ -18,10 +21,12 @@ ReactDOM.render(
       <Router>
         <Switch>
           <Route exact path="/main" component={Main} />
-          <Route exact path="/" component={RegisterMain} />
+          <Route exact path="/register" component={RegisterMain} />
+          <Route exact path="/" component={Test} />
+          <Route exact path="/costume" component={CustomMize} />
         </Switch>
       </Router>
-      <Footer /> 
+      <Footer />
     </ThemeProvider>
   </Provider>,
   document.getElementById("root")
