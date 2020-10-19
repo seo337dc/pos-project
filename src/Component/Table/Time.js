@@ -20,7 +20,7 @@ const Time = () => {
       clearInterval(timeInter);
     };
   }, []);
-
+  console.log(nowTime);
   return <h1>현재 시간 : {nowTime}</h1>;
 };
 
